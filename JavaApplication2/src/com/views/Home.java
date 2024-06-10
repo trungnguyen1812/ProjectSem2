@@ -1106,9 +1106,19 @@ public class Home extends javax.swing.JFrame {
             ResultSet resultSet = statement.executeQuery(query);
             // Clear the combo box before adding new items
             jComboBoxCatefory.removeAllItems();
-            // Add category names to the combo box
+            // Store category names in an ArrayList
+            ArrayList<String> categoryNames = new ArrayList<>();
             while (resultSet.next()) {
-                jComboBoxCatefory.addItem(resultSet.getString("CategoryName"));
+                String categoryName = resultSet.getString("CategoryName");
+                categoryNames.add(categoryName);
+            }
+            // Find the longest category name
+            int maxLength = categoryNames.stream().mapToInt(String::length).max().orElse(0);
+            // Set the prototype display value
+            jComboBoxCatefory.setPrototypeDisplayValue(" ".repeat(maxLength + 5)); // Adjust the additional spaces as needed
+            // Add category names to the combo box
+            for (String categoryName : categoryNames) {
+                jComboBoxCatefory.addItem(categoryName);
             }
             // Close resources
             resultSet.close();
@@ -1134,9 +1144,19 @@ public class Home extends javax.swing.JFrame {
             ResultSet resultSet = statement.executeQuery(query);
             // Clear the combo box before adding new items
             jComboBoxCatefory1.removeAllItems();
-            // Add category names to the combo box
+            // Store category names in an ArrayList
+            ArrayList<String> categoryNames = new ArrayList<>();
             while (resultSet.next()) {
-                jComboBoxCatefory1.addItem(resultSet.getString("CategoryName"));
+                String categoryName = resultSet.getString("CategoryName");
+                categoryNames.add(categoryName);
+            }
+            // Find the longest category name
+            int maxLength = categoryNames.stream().mapToInt(String::length).max().orElse(0);
+            // Set the prototype display value
+            jComboBoxCatefory1.setPrototypeDisplayValue(" ".repeat(maxLength + 5)); // Adjust the additional spaces as needed
+            // Add category names to the combo box
+            for (String categoryName : categoryNames) {
+                jComboBoxCatefory1.addItem(categoryName);
             }
             // Close resources
             resultSet.close();
@@ -1938,6 +1958,48 @@ public class Home extends javax.swing.JFrame {
         }
     }
 
+    //RESET TABLE ORDER 
+     private void resetTableOrder() {
+        try {
+            // Kết nối đến cơ sở dữ liệu
+            ConnecDB cn = new ConnecDB();
+            Connection conn = cn.getConnection(); // Lấy kết nối từ ConnecDB
+
+            // Tạo câu truy vấn SQL
+            String query = "SELECT * FROM Oders";
+            PreparedStatement statement = conn.prepareStatement(query);
+
+            // Thực thi truy vấn và hiển thị kết quả
+            ResultSet resultSet = statement.executeQuery();
+
+            // Lấy mô hình của jTableProducts
+            DefaultTableModel ResetTableOrder = (DefaultTableModel) jTableOrder.getModel();
+
+            // Xóa dữ liệu cũ trong bảng
+            ResetTableOrder.setRowCount(0);
+
+            // Thêm dữ liệu mới vào bảng
+            while (resultSet.next()) {
+                Object[] row = {
+                    resultSet.getInt("OderID"),
+                    resultSet.getString("MSKH"),
+                    resultSet.getDouble("TotalPrice")
+                };
+                ResetTableOrder.addRow(row);
+            }
+
+            // Đóng kết nối
+            resultSet.close();
+            statement.close();
+            conn.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error connecting to database: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Class not found: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
     //********************************************************* MANAGER ORDER*********************************************************//
     // chuc nang oders 
     @SuppressWarnings("unchecked")
@@ -2202,8 +2264,8 @@ public class Home extends javax.swing.JFrame {
         btnAddCustomer1 = new javax.swing.JButton();
         jLabel63 = new javax.swing.JLabel();
         intputSearchCustomer1 = new javax.swing.JTextField();
-        btnSearchCustomer1 = new javax.swing.JButton();
-        btnResetCustomer1 = new javax.swing.JButton();
+        btnSearchOrder = new javax.swing.JButton();
+        btnResetOrder = new javax.swing.JButton();
 
         jDialogAddEmployee.setTitle("Form Add Employees");
         jDialogAddEmployee.setMinimumSize(new java.awt.Dimension(847, 735));
@@ -4867,21 +4929,21 @@ public class Home extends javax.swing.JFrame {
         jLabel63.setBackground(new java.awt.Color(255, 255, 255));
         jLabel63.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel63.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel63.setText("Search Name");
+        jLabel63.setText("Search MSKH");
 
-        btnSearchCustomer1.setBackground(new java.awt.Color(255, 255, 255));
-        btnSearchCustomer1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/plus (1).png"))); // NOI18N
-        btnSearchCustomer1.addActionListener(new java.awt.event.ActionListener() {
+        btnSearchOrder.setBackground(new java.awt.Color(255, 255, 255));
+        btnSearchOrder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/plus (1).png"))); // NOI18N
+        btnSearchOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSearchCustomer1ActionPerformed(evt);
+                btnSearchOrderActionPerformed(evt);
             }
         });
 
-        btnResetCustomer1.setBackground(new java.awt.Color(255, 255, 255));
-        btnResetCustomer1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/exchange.png"))); // NOI18N
-        btnResetCustomer1.addActionListener(new java.awt.event.ActionListener() {
+        btnResetOrder.setBackground(new java.awt.Color(255, 255, 255));
+        btnResetOrder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/exchange.png"))); // NOI18N
+        btnResetOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnResetCustomer1ActionPerformed(evt);
+                btnResetOrderActionPerformed(evt);
             }
         });
 
@@ -4903,9 +4965,9 @@ public class Home extends javax.swing.JFrame {
                             .addGroup(jPanel15Layout.createSequentialGroup()
                                 .addComponent(intputSearchCustomer1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnSearchCustomer1)
+                                .addComponent(btnSearchOrder)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnResetCustomer1)))))
+                                .addComponent(btnResetOrder)))))
                 .addContainerGap(802, Short.MAX_VALUE))
         );
         jPanel15Layout.setVerticalGroup(
@@ -4919,8 +4981,8 @@ public class Home extends javax.swing.JFrame {
                             .addComponent(jLabel62, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnResetCustomer1, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnSearchCustomer1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnResetOrder, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnSearchOrder, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(intputSearchCustomer1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18))
                     .addGroup(jPanel15Layout.createSequentialGroup()
@@ -5259,7 +5321,6 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jComboBoxCateforyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCateforyActionPerformed
-        // TODO add your handling code here:
 
     }//GEN-LAST:event_jComboBoxCateforyActionPerformed
 
@@ -5281,13 +5342,14 @@ public class Home extends javax.swing.JFrame {
         showFormOrderDetail();
     }//GEN-LAST:event_btnAddCustomer1ActionPerformed
 
-    private void btnSearchCustomer1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchCustomer1ActionPerformed
+    private void btnSearchOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchOrderActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnSearchCustomer1ActionPerformed
+    }//GEN-LAST:event_btnSearchOrderActionPerformed
 
-    private void btnResetCustomer1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetCustomer1ActionPerformed
+    private void btnResetOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetOrderActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnResetCustomer1ActionPerformed
+        resetTableOrder();
+    }//GEN-LAST:event_btnResetOrderActionPerformed
 
     private void btnUploadProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUploadProductActionPerformed
         // TODO add your handling code here:
@@ -5544,11 +5606,11 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JButton btnFormEditProduct;
     private javax.swing.JButton btnOder;
     private javax.swing.JButton btnResetCustomer;
-    private javax.swing.JButton btnResetCustomer1;
+    private javax.swing.JButton btnResetOrder;
     private javax.swing.JButton btnResetProduct;
     private javax.swing.JButton btnSearchCustomer;
-    private javax.swing.JButton btnSearchCustomer1;
     private javax.swing.JButton btnSearchEmp;
+    private javax.swing.JButton btnSearchOrder;
     private javax.swing.JButton btnSearchProduct;
     private javax.swing.JButton btnUploadProduct;
     private javax.swing.JButton btnUploadProduct1;

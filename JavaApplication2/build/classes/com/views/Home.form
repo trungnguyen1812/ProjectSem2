@@ -4810,9 +4810,9 @@
                                           <Group type="102" alignment="0" attributes="0">
                                               <Component id="intputSearchCustomer1" min="-2" pref="229" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="btnSearchCustomer1" min="-2" max="-2" attributes="0"/>
+                                              <Component id="btnSearchOrder" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="btnResetCustomer1" min="-2" max="-2" attributes="0"/>
+                                              <Component id="btnResetOrder" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -4833,8 +4833,8 @@
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="btnResetCustomer1" alignment="1" min="-2" max="-2" attributes="0"/>
-                                          <Component id="btnSearchCustomer1" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="btnResetOrder" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="btnSearchOrder" alignment="1" min="-2" max="-2" attributes="0"/>
                                           <Component id="intputSearchCustomer1" alignment="1" min="-2" pref="40" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -4952,12 +4952,12 @@
                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="0" green="0" red="0" type="rgb"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="Search Name"/>
+                        <Property name="text" type="java.lang.String" value="Search MSKH"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="intputSearchCustomer1">
                     </Component>
-                    <Component class="javax.swing.JButton" name="btnSearchCustomer1">
+                    <Component class="javax.swing.JButton" name="btnSearchOrder">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -4967,10 +4967,10 @@
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSearchCustomer1ActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSearchOrderActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="btnResetCustomer1">
+                    <Component class="javax.swing.JButton" name="btnResetOrder">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -4980,7 +4980,7 @@
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnResetCustomer1ActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnResetOrderActionPerformed"/>
                       </Events>
                     </Component>
                   </SubComponents>
