@@ -12,7 +12,7 @@ public class Employees {
      private int EmployeeID;
      private String Name;
      private String MSNV;
-     private int  Phone;
+     private String  Phone;
      private String Address;
      private String Img;
      private String Password;
@@ -20,7 +20,7 @@ public class Employees {
     public Employees() {
     }
 
-    public Employees(int EmployeeID,String Name , String MSNV, int Phone, String Address, String Img, String Password ) {
+    public Employees(int EmployeeID,String Name , String MSNV, String Phone, String Address, String Img, String Password ) {
         this.EmployeeID = EmployeeID;
         this.Name = Name;
         this.MSNV = MSNV;
@@ -54,11 +54,11 @@ public class Employees {
         this.MSNV = MSNV;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return Phone;
     }
 
-    public void setPhone(int Phone) {
+    public void setPhone(String Phone) {
         this.Phone = Phone;
     }
 
